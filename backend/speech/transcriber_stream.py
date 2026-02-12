@@ -10,7 +10,8 @@ class StreamingTranscriber:
         model_size="small",
         sample_rate=16000,
         window_seconds=4.0,
-        language="en"
+        language="en",
+        initial_prompt=None
     ):
         self.sample_rate = sample_rate
         self.window_samples = int(sample_rate * window_seconds)
@@ -23,6 +24,7 @@ class StreamingTranscriber:
         )
 
         self.language = language
+        self.initial_prompt = initial_prompt
         self.last_text = ""
 
     def add_chunk(self, chunk: np.ndarray):
@@ -47,6 +49,7 @@ class StreamingTranscriber:
         segments, info = self.model.transcribe(
             audio,
             language=self.language,
+            initial_prompt=self.initial_prompt,
             condition_on_previous_text=False,
             beam_size=3,
             vad_filter=True
