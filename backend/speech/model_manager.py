@@ -1,7 +1,9 @@
-
 from pathlib import Path
 import shutil
 from faster_whisper import download_model
+from backend.core.logger import get_logger
+
+logger = get_logger(__name__)
 
 class ModelManager:
     def __init__(self, models_dir="models"):
@@ -13,39 +15,41 @@ class ModelManager:
         """Check which models are downloaded."""
         status = {}
         for model in self.available_models:
-            # simple check: folder exists in models_dir
-            # faster_whisper downloads to a specific cache, but we can target a folder
-            # If we used download_model(model_size, output_dir=...), it puts files there.
-            model_path = self.models_dir / f"models--systran--faster-whisper-{model}"
-            # The folder name might vary based on repo structure, but let's standardize download
-            # Actually faster-whisper default structure is models--gw...
-            # We will check if we have done a download to our custom dir.
-            
-            # Alternative: check if ANY folder in self.models_dir looks like it.
-            # But let's just check if we have a folder named {model} or similar.
-            
-            # Let's rely on our download implementation:
-            # We will download to self.models_dir / model_size
+            # We assume download_model puts files in model_dir/model_size
             updated_path = self.models_dir / model
-            status[model] = updated_path.exists() and any(updated_path.iterdir())
+            is_downloaded = updated_path.exists() and any(updated_path.iterdir())
+            status[model] = is_downloaded
+            # logger.debug(f"Model {model} status: {'downloaded' if is_downloaded else 'missing'}")
         return status
 
     def download_model(self, model_size):
         if model_size not in self.available_models:
+            logger.error(f"Invalid model size requested: {model_size}")
             raise ValueError(f"Invalid model size: {model_size}")
         
         output_path = self.models_dir / model_size
-        print(f"Downloading {model_size} to {output_path}...")
+        logger.info(f"Downloading {model_size} to {output_path}...")
         
-        # This blocks, so we should run it in a thread/process in the API
-        download_model(model_size, output_dir=str(output_path))
-        return {"status": "success", "path": str(output_path)}
+        try:
+            # This blocks, so we should run it in a thread/process in the API
+            download_model(model_size, output_dir=str(output_path))
+            logger.info(f"Successfully downloaded {model_size}")
+            return {"status": "success", "path": str(output_path)}
+        except Exception as e:
+            logger.error(f"Failed to download model {model_size}: {e}")
+            raise e
 
     def delete_model(self, model_size):
         path = self.models_dir / model_size
         if path.exists():
-            shutil.rmtree(path)
-            return {"status": "deleted"}
+            try:
+                shutil.rmtree(path)
+                logger.info(f"Deleted model {model_size}")
+                return {"status": "deleted"}
+            except Exception as e:
+                logger.error(f"Failed to delete model {model_size}: {e}")
+                raise e
+        logger.warning(f"Model {model_size} not found used for deletion")
         return {"status": "not_found"}
 
     def get_model_path(self, model_size):
