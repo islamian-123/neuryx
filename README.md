@@ -1,1 +1,1 @@
-# neuryx
+# Neuryx
