@@ -46,41 +46,39 @@ class StreamingTranscriber:
         self.previous_partial = ""
         self.stability_counter = 0
         self.STABILITY_THRESHOLD = 3
+        
         self.SILENCE_TIMEOUT_SEC = 1.2 # Increased to 1.2s (Phase 2.5)
         self.last_audio_time = time.time()
         
         # Throttling — only transcribe every TRANSCRIBE_INTERVAL seconds
         self.TRANSCRIBE_INTERVAL = 0.8
         self.last_transcribe_time = 0.0
-        
-        # Preprocessing Config
-        self.use_pre_emphasis = True
-        
         # Metrics
         self.chunk_count = 0
         self.total_inference_time = 0.0
         self.total_commits = 0
         self.stability_accum_cycles = 0
+        
+        # Debug
+        self.first_chunk_logged = False
 
     def preprocess_audio(self, audio: np.ndarray) -> np.ndarray:
-        """Phase 2.5: Normalization and Pre-emphasis"""
-        # Ensure float32
-        audio = audio.astype(np.float32)
-        
-        # Normalize amplitude
-        max_val = np.max(np.abs(audio))
-        if max_val > 1e-6:
-            audio = audio / max_val
-            
-        # Pre-emphasis filter (High-pass)
-        if self.use_pre_emphasis and len(audio) > 1:
-            # audio[1:] = audio[1:] - 0.97 * audio[:-1]
-            # Vectorized implementation
-            audio[1:] -= 0.97 * audio[:-1]
-            
+        """Phase 3: Integrity Reset - No preprocessing"""
+        # audio = audio / max(abs(audio).max(), 1e-6) # REMOVED
+        # Pre-emphasis REMOVED
         return audio
 
     def add_chunk(self, chunk: np.ndarray):
+        # Debug Log for first chunk (Integrity Check)
+        if not self.first_chunk_logged:
+            logger.info(
+                f"FIRST CHUNK | Shape: {chunk.shape} | "
+                f"Range: [{chunk.min():.4f}, {chunk.max():.4f}] | "
+                f"Mean: {chunk.mean():.4f} | "
+                f"Dtype: {chunk.dtype}"
+            )
+            self.first_chunk_logged = True
+
         if chunk.ndim == 1:
             chunk = chunk[:, None]
 
@@ -90,10 +88,10 @@ class StreamingTranscriber:
         if len(self.buffer) > self.window_samples:
             self.buffer = self.buffer[-self.window_samples:]
             
-        # Check silence (Energy based VAD)
-        rms = np.sqrt(np.mean(chunk**2))
-        if rms > 0.01:
-             self.last_audio_time = time.time()
+        # Check silence (Energy based VAD) - DISABLED for Reset
+        # rms = np.sqrt(np.mean(chunk**2))
+        # if rms > 0.01:
+        self.last_audio_time = time.time()
 
     def ready(self) -> bool:
         # Must have enough audio AND enough time since last transcription

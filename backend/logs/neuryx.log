@@ -401,3 +401,146 @@
 2026-02-14 18:06:39,955 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
 2026-02-14 18:06:39,955 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 5, 'avg_inference_time': 2.9466360092163084, 'total_commits': 3, 'avg_stability_cycles': 1.6666666666666667}
 2026-02-14 18:06:39,957 | INFO | backend.main | Cleaned up transcriber session
+2026-02-14 18:27:48,244 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 18:27:48,244 | INFO | backend.main | Initial Memory Usage: 93.35 MB
+2026-02-14 18:27:48,250 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 18:27:52,049 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 336.61 MB. Total: 429.97 MB
+2026-02-14 18:27:52,049 | INFO | backend.main | Model pre-loaded. Memory: 429.97 MB
+2026-02-14 18:27:59,910 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: ur
+2026-02-14 18:27:59,911 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:27:59,912 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:27:59,914 | INFO | backend.speech.transcriber_stream | Active Inference Profile: ur -> InferenceProfile(beam_size=5, temperature=0.0, best_of=3, condition_on_previous_text=True, vad_filter=True, initial_prompt='The following speech is in Urdu. Transcribe carefully.')
+2026-02-14 18:27:59,917 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_182759.txt
+2026-02-14 18:28:03,176 | INFO | backend.speech.transcriber_stream | Inf: 0.136s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:04,085 | INFO | backend.speech.transcriber_stream | Inf: 0.016s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:05,105 | INFO | backend.speech.transcriber_stream | Inf: 0.015s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:06,135 | INFO | backend.speech.transcriber_stream | Inf: 0.029s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:12,406 | INFO | backend.speech.transcriber_stream | Inf: 5.267s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:12,411 | INFO | backend.speech.transcriber_stream | Committed segment: 'ہلو۔' (Reason: silence)
+2026-02-14 18:28:18,066 | INFO | backend.speech.transcriber_stream | Inf: 5.642s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:18,068 | INFO | backend.speech.transcriber_stream | Committed segment: 'جیسے ہون۔' (Reason: silence)
+2026-02-14 18:28:18,085 | INFO | backend.speech.transcriber_stream | Inf: 0.015s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:24,834 | INFO | backend.speech.transcriber_stream | Inf: 5.928s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:24,834 | INFO | backend.speech.transcriber_stream | Committed segment: 'ایرو اسپیس ٹیکنالوجی۔' (Reason: silence)
+2026-02-14 18:28:24,861 | INFO | backend.speech.transcriber_stream | Inf: 0.015s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:25,868 | INFO | backend.speech.transcriber_stream | Inf: 0.043s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:26,912 | INFO | backend.speech.transcriber_stream | Inf: 0.056s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:27,930 | INFO | backend.speech.transcriber_stream | Inf: 0.050s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:28,946 | INFO | backend.speech.transcriber_stream | Inf: 0.035s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:29,964 | INFO | backend.speech.transcriber_stream | Inf: 0.034s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:29,964 | INFO | backend.main | Session Stats | RAM: 469.43MB | Avg Inference: 1.234s | Commits: 3
+2026-02-14 18:28:30,976 | INFO | backend.speech.transcriber_stream | Inf: 0.031s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:32,020 | INFO | backend.speech.transcriber_stream | Inf: 0.036s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:33,050 | INFO | backend.speech.transcriber_stream | Inf: 0.036s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:34,081 | INFO | backend.speech.transcriber_stream | Inf: 0.036s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:35,096 | INFO | backend.speech.transcriber_stream | Inf: 0.032s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:42,058 | INFO | backend.speech.transcriber_stream | Inf: 5.971s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:28:42,060 | INFO | backend.speech.transcriber_stream | Committed segment: 'ایرو اسپیس ٹیکنالوجی۔' (Reason: silence)
+2026-02-14 18:28:42,080 | INFO | backend.speech.transcriber_stream | Inf: 0.013s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:29:08,664 | INFO | backend.speech.transcriber_stream | Inf: 25.640s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:29:08,666 | INFO | backend.speech.transcriber_stream | Committed segment: 'ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوج' (Reason: silence)
+2026-02-14 18:29:08,670 | INFO | backend.main | Session Stats | RAM: 470.73MB | Avg Inference: 2.231s | Commits: 5
+2026-02-14 18:29:40,169 | INFO | backend.speech.transcriber_stream | Inf: 31.489s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:29:40,169 | INFO | backend.speech.transcriber_stream | Committed segment: 'ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔ ایرو اسپیس ٹیکنالوجی۔' (Reason: silence)
+2026-02-14 18:29:40,174 | INFO | backend.main | Session Stats | RAM: 466.39MB | Avg Inference: 3.503s | Commits: 6
+2026-02-14 18:29:47,087 | INFO | backend.speech.transcriber_stream | Inf: 6.910s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:29:47,088 | INFO | backend.speech.transcriber_stream | Committed segment: 'کرہاو۔' (Reason: silence)
+2026-02-14 18:29:52,209 | INFO | backend.speech.transcriber_stream | Inf: 5.111s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:29:52,209 | INFO | backend.speech.transcriber_stream | Committed segment: 'انجینئرنگ۔' (Reason: silence)
+2026-02-14 18:29:52,219 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: 
+2026-02-14 18:29:52,220 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:29:52,220 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:29:52,220 | INFO | backend.speech.transcriber_stream | Active Inference Profile: roman-ur -> InferenceProfile(beam_size=5, temperature=0.0, best_of=3, condition_on_previous_text=True, vad_filter=True, initial_prompt='The following speech is in Urdu. Write the output in Roman Urdu using English letters.')
+2026-02-14 18:29:52,222 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_182952.txt
+2026-02-14 18:29:58,864 | INFO | backend.speech.transcriber_stream | Inf: 4.522s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:03,435 | INFO | backend.speech.transcriber_stream | Inf: 4.562s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:08,342 | INFO | backend.speech.transcriber_stream | Inf: 4.904s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:12,936 | INFO | backend.speech.transcriber_stream | Inf: 4.592s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:17,738 | INFO | backend.speech.transcriber_stream | Inf: 4.799s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:22,785 | INFO | backend.speech.transcriber_stream | Inf: 5.043s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:22,786 | INFO | backend.main | Session Stats | RAM: 471.69MB | Avg Inference: 4.737s | Commits: 0
+2026-02-14 18:30:32,334 | INFO | backend.speech.transcriber_stream | Inf: 9.544s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:32,335 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hi.' (Reason: silence)
+2026-02-14 18:30:41,650 | INFO | backend.speech.transcriber_stream | Inf: 9.305s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:41,650 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hello.' (Reason: silence)
+2026-02-14 18:30:46,295 | INFO | backend.speech.transcriber_stream | Inf: 4.638s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:50,850 | INFO | backend.speech.transcriber_stream | Inf: 4.554s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:55,394 | INFO | backend.speech.transcriber_stream | Inf: 4.544s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:30:55,397 | INFO | backend.main | Session Stats | RAM: 471.98MB | Avg Inference: 5.546s | Commits: 2
+2026-02-14 18:31:04,612 | INFO | backend.speech.transcriber_stream | Inf: 9.213s | Prof: InferenceProfile | Beam: 5 | Temp: 0.0
+2026-02-14 18:41:46,633 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 18:41:46,633 | INFO | backend.main | Initial Memory Usage: 106.87 MB
+2026-02-14 18:41:46,633 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 18:41:51,291 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 320.35 MB. Total: 427.37 MB
+2026-02-14 18:41:51,293 | INFO | backend.main | Model pre-loaded. Memory: 427.37 MB
+2026-02-14 18:42:17,366 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: en
+2026-02-14 18:42:17,366 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:42:17,366 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:42:17,366 | INFO | backend.speech.transcriber_stream | Active Inference Profile: en -> InferenceProfile(beam_size=2, temperature=0.0, best_of=1, condition_on_previous_text=False, vad_filter=True, initial_prompt=None)
+2026-02-14 18:42:17,372 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_184217.txt
+2026-02-14 18:42:23,911 | INFO | backend.speech.transcriber_stream | Inf: 0.150s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:24,807 | INFO | backend.speech.transcriber_stream | Inf: 0.014s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:25,838 | INFO | backend.speech.transcriber_stream | Inf: 0.025s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:31,939 | INFO | backend.speech.transcriber_stream | Inf: 5.094s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:31,940 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hello.' (Reason: silence)
+2026-02-14 18:42:38,668 | INFO | backend.speech.transcriber_stream | Inf: 6.719s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:38,668 | INFO | backend.speech.transcriber_stream | Committed segment: 'My name is.' (Reason: silence)
+2026-02-14 18:42:43,628 | INFO | backend.speech.transcriber_stream | Inf: 4.954s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:43,628 | INFO | backend.speech.transcriber_stream | Committed segment: 'My name is.' (Reason: silence)
+2026-02-14 18:42:48,584 | INFO | backend.speech.transcriber_stream | Inf: 4.950s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:48,586 | INFO | backend.speech.transcriber_stream | Committed segment: 'I am.' (Reason: silence)
+2026-02-14 18:42:48,591 | INFO | backend.main | Session Stats | RAM: 467.60MB | Avg Inference: 3.129s | Commits: 4
+2026-02-14 18:42:53,223 | INFO | backend.speech.transcriber_stream | Inf: 4.627s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:42:53,223 | INFO | backend.speech.transcriber_stream | Committed segment: 'Founded of.' (Reason: silence)
+2026-02-14 18:48:54,190 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 18:48:54,190 | INFO | backend.main | Initial Memory Usage: 94.24 MB
+2026-02-14 18:48:54,192 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 18:49:00,762 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 336.74 MB. Total: 430.98 MB
+2026-02-14 18:49:00,762 | INFO | backend.main | Model pre-loaded. Memory: 430.98 MB
+2026-02-14 18:49:11,638 | INFO | backend.main | Starting batch recording...
+2026-02-14 18:49:11,754 | INFO | backend.speech.audio_manager | Recording started...
+2026-02-14 18:49:44,440 | INFO | backend.main | Stopping batch recording... (Language: en)
+2026-02-14 18:49:44,488 | INFO | backend.speech.audio_manager | Recording saved to recordings\recording_20260214_184944.wav
+2026-02-14 18:49:44,488 | INFO | backend.main | Transcribing file: recordings\recording_20260214_184944.wav
+2026-02-14 18:49:44,488 | INFO | backend.speech.transcriber | Transcribing audio file: recordings\recording_20260214_184944.wav | Language: en
+2026-02-14 18:49:44,491 | INFO | backend.speech.transcriber | Using Profile: InferenceProfile(beam_size=2, temperature=0.0, best_of=1, condition_on_previous_text=False, vad_filter=True, initial_prompt=None)
+2026-02-14 18:49:51,443 | INFO | backend.speech.transcriber | Transcription successful
+2026-02-14 18:49:51,444 | INFO | backend.main | Batch transcription complete
+2026-02-14 18:49:53,903 | INFO | backend.main | Starting batch recording...
+2026-02-14 18:49:54,019 | INFO | backend.speech.audio_manager | Recording started...
+2026-02-14 18:50:33,960 | INFO | backend.main | Stopping batch recording... (Language: ur)
+2026-02-14 18:50:34,010 | INFO | backend.speech.audio_manager | Recording saved to recordings\recording_20260214_185034.wav
+2026-02-14 18:50:34,015 | INFO | backend.main | Transcribing file: recordings\recording_20260214_185034.wav
+2026-02-14 18:50:34,015 | INFO | backend.speech.transcriber | Transcribing audio file: recordings\recording_20260214_185034.wav | Language: ur
+2026-02-14 18:50:34,015 | INFO | backend.speech.transcriber | Using Profile: InferenceProfile(beam_size=5, temperature=0.0, best_of=3, condition_on_previous_text=True, vad_filter=True, initial_prompt='The following speech is in Urdu. Transcribe carefully.')
+2026-02-14 18:50:43,729 | INFO | backend.speech.transcriber | Transcription successful
+2026-02-14 18:50:43,731 | INFO | backend.main | Batch transcription complete
+2026-02-14 18:51:02,242 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: en
+2026-02-14 18:51:02,243 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:51:02,243 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:51:02,243 | INFO | backend.speech.transcriber_stream | Active Inference Profile: en -> InferenceProfile(beam_size=2, temperature=0.0, best_of=1, condition_on_previous_text=False, vad_filter=True, initial_prompt=None)
+2026-02-14 18:51:02,247 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_185102.txt
+2026-02-14 18:51:06,087 | INFO | backend.speech.transcriber_stream | Inf: 0.014s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:07,107 | INFO | backend.speech.transcriber_stream | Inf: 0.018s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:08,137 | INFO | backend.speech.transcriber_stream | Inf: 0.025s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:15,117 | INFO | backend.speech.transcriber_stream | Inf: 5.975s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:15,117 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hi. Hi.' (Reason: silence)
+2026-02-14 18:51:20,625 | INFO | backend.speech.transcriber_stream | Inf: 5.496s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:20,627 | INFO | backend.speech.transcriber_stream | Committed segment: 'I'm Saad Ahmad.' (Reason: silence)
+2026-02-14 18:51:25,520 | INFO | backend.speech.transcriber_stream | Inf: 4.889s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:25,521 | INFO | backend.speech.transcriber_stream | Committed segment: 'Student of Aerospace.' (Reason: silence)
+2026-02-14 18:51:30,537 | INFO | backend.speech.transcriber_stream | Inf: 5.005s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:30,537 | INFO | backend.speech.transcriber_stream | Committed segment: 'Aerospace. Engineering.' (Reason: silence)
+2026-02-14 18:51:35,507 | INFO | backend.speech.transcriber_stream | Inf: 4.960s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:35,511 | INFO | backend.speech.transcriber_stream | Committed segment: 'Founder of...' (Reason: silence)
+2026-02-14 18:51:35,514 | INFO | backend.main | Session Stats | RAM: 480.60MB | Avg Inference: 3.298s | Commits: 5
+2026-02-14 18:51:40,400 | INFO | backend.speech.transcriber_stream | Inf: 4.884s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:40,402 | INFO | backend.speech.transcriber_stream | Committed segment: 'Nudix.' (Reason: silence)
+2026-02-14 18:51:45,487 | INFO | backend.speech.transcriber_stream | Inf: 5.081s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:45,489 | INFO | backend.speech.transcriber_stream | Committed segment: 'Aerospace.' (Reason: silence)
+2026-02-14 18:51:50,646 | INFO | backend.speech.transcriber_stream | Inf: 5.150s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:50,650 | INFO | backend.speech.transcriber_stream | Committed segment: 'Aerospace and.' (Reason: silence)
+2026-02-14 18:51:55,760 | INFO | backend.speech.transcriber_stream | Inf: 5.107s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:51:55,760 | INFO | backend.speech.transcriber_stream | Committed segment: 'AirDrop X.' (Reason: silence)
+2026-02-14 18:52:00,713 | INFO | backend.speech.transcriber_stream | Inf: 4.947s | Prof: InferenceProfile | Beam: 2 | Temp: 0.0
+2026-02-14 18:52:00,713 | INFO | backend.speech.transcriber_stream | Committed segment: 'Thanks.' (Reason: silence)
