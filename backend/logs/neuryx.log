@@ -333,3 +333,71 @@
 2026-02-14 17:35:51,504 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
 2026-02-14 17:35:51,504 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 7, 'avg_inference_time': 1.2873453412737166, 'total_commits': 4, 'avg_stability_cycles': 1.75}
 2026-02-14 17:35:51,508 | INFO | backend.main | Cleaned up transcriber session
+2026-02-14 18:02:54,347 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 18:02:54,357 | INFO | backend.main | Initial Memory Usage: 110.24 MB
+2026-02-14 18:02:54,357 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 18:02:58,023 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 319.47 MB. Total: 429.73 MB
+2026-02-14 18:02:58,023 | INFO | backend.main | Model pre-loaded. Memory: 429.73 MB
+2026-02-14 18:03:05,721 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: ur
+2026-02-14 18:03:05,724 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:03:05,724 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:03:05,726 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_180305.txt
+2026-02-14 18:03:16,570 | INFO | backend.speech.transcriber_stream | Committed segment: 'ہلو' (Reason: silence)
+2026-02-14 18:03:16,572 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.91s
+2026-02-14 18:03:21,584 | INFO | backend.speech.transcriber_stream | Committed segment: 'کیسے ہوں؟' (Reason: silence)
+2026-02-14 18:03:21,586 | WARNING | backend.speech.transcriber_stream | Slow inference: 5.01s
+2026-02-14 18:03:26,925 | INFO | backend.speech.transcriber_stream | Committed segment: 'سب تکتاک، خیرت۔' (Reason: silence)
+2026-02-14 18:03:26,925 | WARNING | backend.speech.transcriber_stream | Slow inference: 5.33s
+2026-02-14 18:03:39,921 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.95s
+2026-02-14 18:03:39,923 | INFO | backend.main | Session Stats | RAM: 465.92MB | Avg Inference: 1.696s | Commits: 3
+2026-02-14 18:03:49,225 | INFO | backend.speech.transcriber_stream | Committed segment: 'بہت سکتا ہے۔' (Reason: silence)
+2026-02-14 18:03:49,227 | WARNING | backend.speech.transcriber_stream | Slow inference: 9.30s
+2026-02-14 18:03:56,491 | INFO | backend.speech.transcriber_stream | Committed segment: 'ہی ہے، اگزم کی؟' (Reason: silence)
+2026-02-14 18:03:56,495 | WARNING | backend.speech.transcriber_stream | Slow inference: 6.20s
+2026-02-14 18:04:02,006 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
+2026-02-14 18:04:02,014 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 22, 'avg_inference_time': 1.6393437602303245, 'total_commits': 5, 'avg_stability_cycles': 4.4}
+2026-02-14 18:04:02,017 | INFO | backend.main | Cleaned up transcriber session
+2026-02-14 18:04:06,659 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: 
+2026-02-14 18:04:06,660 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:04:06,662 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:04:06,664 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_180406.txt
+2026-02-14 18:04:19,318 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hello.' (Reason: silence)
+2026-02-14 18:04:19,323 | WARNING | backend.speech.transcriber_stream | Slow inference: 9.23s
+2026-02-14 18:04:28,875 | INFO | backend.speech.transcriber_stream | Committed segment: 'Kaisi ho se blok.' (Reason: silence)
+2026-02-14 18:04:28,875 | WARNING | backend.speech.transcriber_stream | Slow inference: 9.54s
+2026-02-14 18:04:38,621 | INFO | backend.speech.transcriber_stream | Committed segment: 'Main ne kal jo assignment deti. Wo kar li hai.' (Reason: silence)
+2026-02-14 18:04:38,621 | WARNING | backend.speech.transcriber_stream | Slow inference: 9.73s
+2026-02-14 18:04:38,623 | INFO | backend.main | Session Stats | RAM: 467.39MB | Avg Inference: 9.501s | Commits: 3
+2026-02-14 18:04:43,177 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.54s
+2026-02-14 18:04:47,771 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.59s
+2026-02-14 18:04:52,352 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.58s
+2026-02-14 18:04:56,985 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.63s
+2026-02-14 18:05:01,862 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.88s
+2026-02-14 18:05:06,284 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.42s
+2026-02-14 18:05:10,849 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.56s
+2026-02-14 18:05:10,857 | INFO | backend.main | Session Stats | RAM: 470.11MB | Avg Inference: 6.070s | Commits: 3
+2026-02-14 18:05:15,384 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.52s
+2026-02-14 18:05:19,850 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.46s
+2026-02-14 18:05:24,358 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.51s
+2026-02-14 18:05:28,822 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.46s
+2026-02-14 18:05:32,593 | WARNING | backend.speech.transcriber_stream | Slow inference: 3.77s
+2026-02-14 18:05:37,143 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.55s
+2026-02-14 18:05:43,157 | WARNING | backend.speech.transcriber_stream | Slow inference: 6.01s
+2026-02-14 18:05:43,159 | INFO | backend.main | Session Stats | RAM: 470.12MB | Avg Inference: 5.469s | Commits: 3
+2026-02-14 18:05:49,013 | WARNING | backend.speech.transcriber_stream | Slow inference: 5.85s
+2026-02-14 18:05:59,018 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
+2026-02-14 18:05:59,018 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 18, 'avg_inference_time': 5.490699860784742, 'total_commits': 3, 'avg_stability_cycles': 6.0}
+2026-02-14 18:05:59,018 | INFO | backend.main | Cleaned up transcriber session
+2026-02-14 18:06:19,602 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: en
+2026-02-14 18:06:19,602 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 18:06:19,605 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 18:06:19,623 | INFO | backend.speech.transcriber_stream | Auto-saving transcript to: transcripts/transcript_20260214_180619.txt
+2026-02-14 18:06:28,712 | INFO | backend.speech.transcriber_stream | Committed segment: 'Alright everybody.' (Reason: silence)
+2026-02-14 18:06:28,712 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.92s
+2026-02-14 18:06:33,698 | INFO | backend.speech.transcriber_stream | Committed segment: 'Let's start a test.' (Reason: silence)
+2026-02-14 18:06:33,700 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.97s
+2026-02-14 18:06:38,504 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hello.' (Reason: silence)
+2026-02-14 18:06:38,508 | WARNING | backend.speech.transcriber_stream | Slow inference: 4.79s
+2026-02-14 18:06:39,955 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
+2026-02-14 18:06:39,955 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 5, 'avg_inference_time': 2.9466360092163084, 'total_commits': 3, 'avg_stability_cycles': 1.6666666666666667}
+2026-02-14 18:06:39,957 | INFO | backend.main | Cleaned up transcriber session

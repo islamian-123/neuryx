@@ -1,10 +1,9 @@
-# backend/speech/transcriber_stream.py
-
 import numpy as np
 import time
 from faster_whisper import WhisperModel
 from backend.core.logger import get_logger
 from backend.speech.model_loader import ModelLoader
+from backend.core.inference_config import get_profile_for_language, STREAMING_PROFILE
 
 logger = get_logger(__name__)
 
@@ -13,7 +12,7 @@ class StreamingTranscriber:
         self,
         model_size="small",
         sample_rate=16000,
-        window_seconds=3.0,
+        window_seconds=6.0,  # Increased to 6s for better context (Phase 2.5)
         language="en",
         initial_prompt=None
     ):
@@ -26,8 +25,20 @@ class StreamingTranscriber:
         self.model = ModelLoader.get_model(model_size)
         logger.info(f"Model ready in {time.time() - start_load:.2f}s")
 
-        self.language = language if language else None
-        self.initial_prompt = initial_prompt
+        self.language_code = language
+        
+        # Determine Profile
+        # Note: Frontend sends "" for Roman Urdu usually, we need to handle that mapping in main.py or here.
+        # Assuming main.py passes "ur" or "en". If "roman-ur" is needed, main.py should pass it.
+        # Check if language is empty string -> Roman Urdu
+        lang_key = "roman-ur" if language == "" else language
+            
+        self.profile = get_profile_for_language(lang_key)
+        
+        # Override initial prompt if user provided one, otherwise use profile's
+        self.initial_prompt = initial_prompt if initial_prompt else self.profile.initial_prompt
+        
+        logger.info(f"Active Inference Profile: {lang_key} -> {self.profile}")
         
         # Stability State 
         self.committed_segments = []
@@ -35,18 +46,39 @@ class StreamingTranscriber:
         self.previous_partial = ""
         self.stability_counter = 0
         self.STABILITY_THRESHOLD = 3
-        self.SILENCE_TIMEOUT_SEC = 0.8
+        self.SILENCE_TIMEOUT_SEC = 1.2 # Increased to 1.2s (Phase 2.5)
         self.last_audio_time = time.time()
         
         # Throttling — only transcribe every TRANSCRIBE_INTERVAL seconds
         self.TRANSCRIBE_INTERVAL = 0.8
         self.last_transcribe_time = 0.0
         
+        # Preprocessing Config
+        self.use_pre_emphasis = True
+        
         # Metrics
         self.chunk_count = 0
         self.total_inference_time = 0.0
         self.total_commits = 0
         self.stability_accum_cycles = 0
+
+    def preprocess_audio(self, audio: np.ndarray) -> np.ndarray:
+        """Phase 2.5: Normalization and Pre-emphasis"""
+        # Ensure float32
+        audio = audio.astype(np.float32)
+        
+        # Normalize amplitude
+        max_val = np.max(np.abs(audio))
+        if max_val > 1e-6:
+            audio = audio / max_val
+            
+        # Pre-emphasis filter (High-pass)
+        if self.use_pre_emphasis and len(audio) > 1:
+            # audio[1:] = audio[1:] - 0.97 * audio[:-1]
+            # Vectorized implementation
+            audio[1:] -= 0.97 * audio[:-1]
+            
+        return audio
 
     def add_chunk(self, chunk: np.ndarray):
         if chunk.ndim == 1:
@@ -66,7 +98,7 @@ class StreamingTranscriber:
     def ready(self) -> bool:
         # Must have enough audio AND enough time since last transcription
         now = time.time()
-        if len(self.buffer) < self.window_samples:
+        if len(self.buffer) < int(self.sample_rate * 1.0): # Valid audio needs at least 1 sec
             return False
         if now - self.last_transcribe_time < self.TRANSCRIBE_INTERVAL:
             return False
@@ -74,46 +106,62 @@ class StreamingTranscriber:
 
     def transcribe(self):
         """
-        Returns a dictionary with 'committed' list and 'partial' string.
-        Throttled to run at most once per TRANSCRIBE_INTERVAL.
+        Transcribes audio buffer using active InferenceProfile.
         """
         if not self.ready():
-            # Still return current state so frontend stays updated
             return {
                 "committed": self.committed_segments,
                 "partial": self.current_partial
             }
 
         self.last_transcribe_time = time.time()
-        audio = self.buffer.squeeze()
+        
+        # 1. Get Audio
+        raw_audio = self.buffer.squeeze()
+        
+        # 2. Preprocess (Phase 2.5)
+        audio = self.preprocess_audio(raw_audio)
         
         start_inference = time.time()
         
-        # Build prompt: last committed segment + initial prompt
+        # 3. Build prompt (Context Handling)
         prompt_parts = []
         if self.committed_segments:
-            # Use last 3 segments for better context without bloat
-            # This balances speed (short prompt) with coherence (knowing previous sentence)
-            recent_context = " ".join([seg["text"] for seg in self.committed_segments[-3:]])
-            prompt_parts.append(recent_context)
+             # Use last segment for basic continuity
+             prompt_parts.append(self.committed_segments[-1]["text"])
+        
         if self.initial_prompt:
             prompt_parts.append(self.initial_prompt)
-        effective_prompt = ". ".join(prompt_parts) if prompt_parts else None
+            
+        effective_prompt = " ".join(prompt_parts) if prompt_parts else None
 
+        # 4. Inference using Profile
+        # Note: faster_whisper might not support 'best_of' in transcribe(), it uses 'best_of' in decode options.
+        # But transcribe() params include best_of.
+        
         segments, info = self.model.transcribe(
             audio,
-            language=self.language,
+            language=self.language_code if self.language_code else None,
+            
             initial_prompt=effective_prompt,
-            condition_on_previous_text=False,
-            beam_size=3,
-            vad_filter=True,
-            temperature=[0.0, 0.2, 0.4],  # Fallback to creative decoding if high confidence fails
-            repetition_penalty=1.1,       # Reduce looping repetitions
-            no_speech_threshold=0.4       # More sensitive silence detection (prevent missing words)
+            condition_on_previous_text=self.profile.condition_on_previous_text,
+            beam_size=self.profile.beam_size,
+            best_of=self.profile.best_of,
+            vad_filter=self.profile.vad_filter,
+            temperature=self.profile.temperature,
+            no_speech_threshold=0.4 # Kept from previous optimization
         )
         
         segment_list = list(segments)
         inference_time = time.time() - start_inference
+        
+        # Performance Logging (Phase 2.5)
+        logger.info(
+            f"Inf: {inference_time:.3f}s | "
+            f"Prof: {type(self.profile).__name__} | "
+            f"Beam: {self.profile.beam_size} | "
+            f"Temp: {self.profile.temperature}"
+        )
         
         full_text = " ".join(seg.text.strip() for seg in segment_list)
         
@@ -159,13 +207,10 @@ class StreamingTranscriber:
             self.previous_partial = ""
             self.stability_counter = 0
             
-            # Clear buffer to avoid re-transcribing committed text
+            # Clear buffer
             self.buffer = np.zeros((0, 1), dtype=np.float32)
             
-            # NOTE: We do NOT delete committed segments anymore to keep history.
-            # Inference speed is preserved by only using last 20 for prompt (see below).
-            
-            # Auto-save to file if writer exists
+            # Auto-save
             if hasattr(self, 'file_writer') and self.file_writer:
                 self.file_writer.write(f"{full_text}\n")
                 self.file_writer.flush()
@@ -176,9 +221,6 @@ class StreamingTranscriber:
         # Metrics
         self.chunk_count += 1
         self.total_inference_time += inference_time
-        
-        if inference_time > 1.0:
-            logger.warning(f"Slow inference: {inference_time:.2f}s")
         
         return {
             "committed": self.committed_segments,
