@@ -45,3 +45,101 @@
 2026-02-14 14:54:52,745 | INFO | backend.main | Neuryx Backend Starting...
 2026-02-14 14:54:52,745 | INFO | backend.main | Initial Memory Usage: 103.34 MB
 2026-02-14 14:54:52,750 | INFO | backend.main | Neuryx Backend Shutting Down...
+2026-02-14 15:09:33,662 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 15:09:33,663 | INFO | backend.main | Initial Memory Usage: 110.27 MB
+2026-02-14 15:14:08,296 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 15:14:08,298 | INFO | backend.main | Initial Memory Usage: 110.75 MB
+2026-02-14 15:14:26,933 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: ur
+2026-02-14 15:14:26,933 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:14:26,936 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 15:14:31,848 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 273.11 MB. Total: 432.30 MB
+2026-02-14 15:14:31,848 | INFO | backend.speech.transcriber_stream | Model ready in 4.92s
+2026-02-14 15:16:08,438 | INFO | backend.main | Session Stats | RAM: 469.52MB | Avg Inference: 89.130s | Commits: 0
+2026-02-14 15:17:39,134 | INFO | backend.speech.transcriber_stream | Committed segment: 'ہی ویٹن کے لی میز کل سمحہ ستیت ہے جیز تو کل سمحہ ستیت ہے' (Reason: silence)
+2026-02-14 15:17:39,137 | INFO | backend.main | Session Stats | RAM: 468.79MB | Avg Inference: 44.953s | Commits: 1
+2026-02-14 15:17:39,148 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: ur
+2026-02-14 15:17:39,150 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:17:39,150 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 15:17:39,169 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: ur
+2026-02-14 15:17:39,169 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:17:39,172 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 15:18:36,858 | INFO | backend.speech.transcriber_stream | Committed segment: 'ہلو ہو جانتے ہیں؟' (Reason: silence)
+2026-02-14 15:18:36,860 | INFO | backend.main | Session Stats | RAM: 470.90MB | Avg Inference: 52.440s | Commits: 1
+2026-02-14 15:18:36,877 | INFO | backend.main | Session Stats | RAM: 471.24MB | Avg Inference: 0.000s | Commits: 0
+2026-02-14 15:20:37,382 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 15:20:37,382 | INFO | backend.main | Initial Memory Usage: 92.17 MB
+2026-02-14 15:20:43,867 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: en
+2026-02-14 15:20:43,870 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:20:43,870 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 15:20:49,334 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 272.74 MB. Total: 432.04 MB
+2026-02-14 15:20:49,335 | INFO | backend.speech.transcriber_stream | Model ready in 5.46s
+2026-02-14 15:21:03,148 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hello' (Reason: silence)
+2026-02-14 15:21:08,105 | INFO | backend.speech.transcriber_stream | Committed segment: 'Good morning. How are you?' (Reason: silence)
+2026-02-14 15:21:13,771 | INFO | backend.speech.transcriber_stream | Committed segment: 'Sadah, mad.' (Reason: silence)
+2026-02-14 15:21:19,559 | INFO | backend.main | Session Stats | RAM: 468.58MB | Avg Inference: 0.422s | Commits: 3
+2026-02-14 15:21:33,386 | INFO | backend.speech.transcriber_stream | Committed segment: 'I' (Reason: silence)
+2026-02-14 15:21:38,363 | INFO | backend.speech.transcriber_stream | Committed segment: 'LSPS Engineering student.' (Reason: silence)
+2026-02-14 15:21:43,308 | INFO | backend.speech.transcriber_stream | Committed segment: 'studying and fourth semester.' (Reason: silence)
+2026-02-14 15:21:48,950 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
+2026-02-14 15:21:48,953 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 108, 'avg_inference_time': 0.3052717557659856, 'total_commits': 6, 'avg_stability_cycles': 18.0}
+2026-02-14 15:21:48,957 | INFO | backend.main | Cleaned up transcriber session
+2026-02-14 15:28:35,949 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-14 15:28:35,949 | INFO | backend.main | Initial Memory Usage: 110.92 MB
+2026-02-14 15:28:35,949 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-14 15:28:41,495 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 319.83 MB. Total: 430.78 MB
+2026-02-14 15:28:41,495 | INFO | backend.main | Model pre-loaded. Memory: 430.78 MB
+2026-02-14 15:28:50,171 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: en
+2026-02-14 15:28:50,171 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:28:50,171 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 15:29:05,330 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hello, how are you? and' (Reason: silence)
+2026-02-14 15:29:11,410 | INFO | backend.speech.transcriber_stream | Committed segment: 'good morning everyone' (Reason: silence)
+2026-02-14 15:29:19,349 | INFO | backend.speech.transcriber_stream | Committed segment: 'Hey' (Reason: silence)
+2026-02-14 15:29:20,236 | INFO | backend.main | Session Stats | RAM: 469.18MB | Avg Inference: 1.373s | Commits: 3
+2026-02-14 15:29:25,958 | INFO | backend.speech.transcriber_stream | Committed segment: 'I am Sahad Ahmad student of aerospace engineering' (Reason: silence)
+2026-02-14 15:29:35,309 | INFO | backend.speech.transcriber_stream | Committed segment: 'I am Sahad Ahmad student of aerospace engineering' (Reason: silence)
+2026-02-14 15:29:41,905 | INFO | backend.speech.transcriber_stream | Committed segment: 'in fourth semester at Institute of Space Technology.' (Reason: silence)
+2026-02-14 15:29:55,035 | INFO | backend.speech.transcriber_stream | Committed segment: 'I am Sahad Ahmad.' (Reason: silence)
+2026-02-14 15:29:55,036 | INFO | backend.main | Session Stats | RAM: 466.11MB | Avg Inference: 0.667s | Commits: 7
+2026-02-14 15:30:01,649 | INFO | backend.speech.transcriber_stream | Committed segment: 'Building this software named as Nurex to' (Reason: silence)
+2026-02-14 15:30:07,621 | INFO | backend.speech.transcriber_stream | Committed segment: 'record live lectures in class and' (Reason: silence)
+2026-02-14 15:30:13,991 | INFO | backend.speech.transcriber_stream | Committed segment: 'transcribe them for the convenience of the students so that' (Reason: silence)
+2026-02-14 15:30:20,349 | INFO | backend.speech.transcriber_stream | Committed segment: 'they don't have to note down the lectures manually which is' (Reason: silence)
+2026-02-14 15:30:26,593 | INFO | backend.speech.transcriber_stream | Committed segment: 'quite a hard job like noting the lecture' (Reason: silence)
+2026-02-14 15:30:26,595 | INFO | backend.main | Session Stats | RAM: 466.19MB | Avg Inference: 1.066s | Commits: 12
+2026-02-14 15:30:32,676 | INFO | backend.speech.transcriber_stream | Committed segment: 'points and writing the important points this software.' (Reason: silence)
+2026-02-14 15:30:38,952 | INFO | backend.speech.transcriber_stream | Committed segment: 'will note down and record the whole lecture and summarize it.' (Reason: silence)
+2026-02-14 15:30:45,029 | INFO | backend.speech.transcriber_stream | Committed segment: 'Pointing out the important points the formulas.' (Reason: silence)
+2026-02-14 15:30:51,804 | INFO | backend.speech.transcriber_stream | Committed segment: 'The teacher have used and will pass out the whole lecture context to an AI agent.' (Reason: silence)
+2026-02-14 15:31:11,532 | INFO | backend.speech.transcriber_stream | Committed segment: 'which the student can use to learn and study.' (Reason: silence)
+2026-02-14 15:31:11,537 | INFO | backend.main | Session Stats | RAM: 469.93MB | Avg Inference: 1.637s | Commits: 17
+2026-02-14 15:31:17,090 | INFO | backend.speech.transcriber_stream | Committed segment: 'for the exams.' (Reason: silence)
+2026-02-14 15:31:26,899 | INFO | backend.main | WebSocket disconnected: 127.0.0.1
+2026-02-14 15:31:26,902 | INFO | backend.main | Session Ended. Final Metrics: {'total_chunks': 156, 'avg_inference_time': 0.7469983269006778, 'total_commits': 18, 'avg_stability_cycles': 8.666666666666666}
+2026-02-14 15:31:26,905 | INFO | backend.main | Cleaned up transcriber session
+2026-02-14 15:31:41,516 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: ur
+2026-02-14 15:31:41,516 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:31:41,516 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 15:31:56,997 | INFO | backend.speech.transcriber_stream | Committed segment: 'حلو' (Reason: silence)
+2026-02-14 15:32:04,086 | INFO | backend.speech.transcriber_stream | Committed segment: 'ایرسپیس انگینیرنگ پر رہا ہوں' (Reason: silence)
+2026-02-14 15:32:11,965 | INFO | backend.speech.transcriber_stream | Committed segment: 'انسٹیٹوٹ اف سپیس ٹریکنالوژی اسلام آباد میں میں چھوٹی سمجھتر میں پر' (Reason: silence)
+2026-02-14 15:32:11,969 | INFO | backend.main | Session Stats | RAM: 472.81MB | Avg Inference: 1.027s | Commits: 3
+2026-02-14 15:32:18,608 | INFO | backend.speech.transcriber_stream | Committed segment: 'اور میں ایس آفٹویر اسلی بنا رہا ہوں' (Reason: silence)
+2026-02-14 15:32:25,475 | INFO | backend.speech.transcriber_stream | Committed segment: 'کہ تولبہ اپنے لیکچرز کو نوٹ کرنے کی بجائے' (Reason: silence)
+2026-02-14 15:32:35,611 | INFO | backend.speech.transcriber_stream | Committed segment: 'ریکوٹ کرے اسی آفٹویر سے جو کہ آئی پاورڈ ایسی ایسی ایسی ایسی ایسی ایسی ایسی ایسی ایسی' (Reason: silence)
+2026-02-14 15:32:44,654 | INFO | backend.speech.transcriber_stream | Committed segment: 'لیکچرز کو نوٹ کرے گا پھر اس کو ٹرانسکرائب کرے گا انگلیش میں اور دو' (Reason: silence)
+2026-02-14 15:32:44,654 | INFO | backend.main | Session Stats | RAM: 474.25MB | Avg Inference: 2.323s | Commits: 7
+2026-02-14 15:34:04,931 | INFO | backend.main | Session Stats | RAM: 468.39MB | Avg Inference: 5.711s | Commits: 7
+2026-02-14 15:34:14,784 | INFO | backend.speech.transcriber_stream | Committed segment: 'رومن اردو میں اس میں سے ایسی پارنٹ اس نکالے گا اس میں سے جو فرمولاستی' (Reason: silence)
+2026-02-14 15:34:14,794 | INFO | backend.main | WebSocket connected: 127.0.0.1 | Lang: 
+2026-02-14 15:34:14,794 | INFO | backend.speech.transcriber_stream | Requesting Whisper model 'small'...
+2026-02-14 15:34:14,798 | INFO | backend.speech.transcriber_stream | Model ready in 0.00s
+2026-02-14 15:34:23,490 | INFO | backend.speech.transcriber_stream | Committed segment: 'کنیر کے وہ نکالے گا اور سار لیکچر جس کا کانٹیکسٹ بنائے وہ ایک' (Reason: silence)
+2026-02-14 15:34:30,886 | INFO | backend.speech.transcriber_stream | Committed segment: 'ایک ای مرد کو ٹرانسفا کرے گا پیر دولبا' (Reason: silence)
+2026-02-14 15:34:41,189 | INFO | backend.speech.transcriber_stream | Committed segment: 'はい。' (Reason: silence)
+2026-02-14 15:34:41,202 | INFO | backend.main | Session Stats | RAM: 472.60MB | Avg Inference: 6.049s | Commits: 10
+2026-02-14 15:34:49,556 | INFO | backend.speech.transcriber_stream | Committed segment: 'تیاری کر سکنگے اسانی سے اگزیم کیلیے' (Reason: silence)
+2026-02-14 15:34:49,565 | INFO | backend.main | Session Stats | RAM: 469.59MB | Avg Inference: 10.285s | Commits: 1
+2026-02-14 15:34:59,748 | INFO | backend.speech.transcriber_stream | Committed segment: 'Mera naam Sahad hai. Main engineering ka student hoon.' (Reason: silence)
+2026-02-14 15:35:10,548 | INFO | backend.speech.transcriber_stream | Committed segment: 'Mera naam Sahad hai. Main engineering ka student hoon.' (Reason: silence)
+2026-02-14 15:35:20,491 | INFO | backend.main | Session Stats | RAM: 476.70MB | Avg Inference: 8.116s | Commits: 3
+2026-02-14 15:35:56,555 | INFO | backend.main | Session Stats | RAM: 476.70MB | Avg Inference: 6.967s | Commits: 3

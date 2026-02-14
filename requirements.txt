@@ -6,4 +6,5 @@ numpy
 sounddevice
 scipy
 pywebview
+websockets
 

@@ -36,6 +36,10 @@ audio_manager = AudioManager()
 async def startup_event():
     logger.info("Neuryx Backend Starting...")
     logger.info(f"Initial Memory Usage: {get_memory_usage_mb():.2f} MB")
+    # Pre-load model so first connection is fast
+    from backend.speech.model_loader import ModelLoader
+    ModelLoader.get_model("small")
+    logger.info(f"Model pre-loaded. Memory: {get_memory_usage_mb():.2f} MB")
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -104,6 +108,7 @@ async def websocket_endpoint(
     
     stream_active = True
     last_log_time = time.time()
+    last_sent_text = ""
     
     try:
         while stream_active:
@@ -126,25 +131,17 @@ async def websocket_endpoint(
             
             transcriber.add_chunk(audio_chunk)
             
-            # Transcribe returns dict {committed: list, partial: str}
             result = transcriber.transcribe()
             
             if result:
-                # FORMAT FOR FRONTEND BACKWARD COMPATIBILITY
-                # Concatenate committed text + partial text
                 committed_text = " ".join([seg["text"] for seg in result["committed"]])
                 partial_text = result["partial"]
-                
-                # Combine them
                 full_display_text = f"{committed_text} {partial_text}".strip()
                 
-                # Only send if there is content to display
-                # Note: This might send "committed" repeatedly if we don't clear it from the transcriber output?
-                # StreamingTranscriber.committed_segments grows indefinitely.
-                # So we are sending the ENTIRE transcript every time.
-                # This matches original behavior (User sees full history in live box).
-                if full_display_text:
+                # Only send if text actually changed
+                if full_display_text and full_display_text != last_sent_text:
                     await websocket.send_text(full_display_text)
+                    last_sent_text = full_display_text
                 
     except WebSocketDisconnect:
         logger.info(f"WebSocket disconnected: {client_host}")
