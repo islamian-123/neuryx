@@ -901,3 +901,21 @@
 2026-02-14 20:16:21,413 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
 2026-02-14 20:16:23,727 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 276.13 MB. Total: 345.27 MB
 2026-02-14 20:16:25,618 | INFO | backend.speech.transcriber | Transcription successful
+2026-02-16 10:46:25,063 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-16 10:46:25,067 | INFO | backend.main | Initial Memory Usage: 154.82 MB
+2026-02-16 10:46:25,077 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-16 10:46:31,616 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 276.50 MB. Total: 431.32 MB
+2026-02-16 10:46:31,618 | INFO | backend.main | Model pre-loaded. Memory: 431.32 MB
+2026-02-16 11:25:47,123 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-16 11:25:53,383 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 277.56 MB. Total: 347.59 MB
+2026-02-16 11:29:30,182 | INFO | backend.main | Neuryx Backend Starting...
+2026-02-16 11:29:30,184 | INFO | backend.main | Initial Memory Usage: 92.81 MB
+2026-02-16 11:29:30,184 | INFO | backend.speech.model_loader | Loading Whisper Model: small...
+2026-02-16 11:29:35,022 | INFO | backend.speech.model_loader | Model loaded. RAM increased by 337.64 MB. Total: 430.46 MB
+2026-02-16 11:29:35,024 | INFO | backend.main | Model pre-loaded. Memory: 430.46 MB
+2026-02-16 11:30:01,924 | INFO | backend.main | Received file for transcription: 1771223401_recording.webm | Lang: en
+2026-02-16 11:30:07,988 | INFO | backend.main | Transcription complete in 6.06s
+2026-02-16 11:30:27,506 | INFO | backend.main | Received file for transcription: 1771223427_recording.webm | Lang: ur
+2026-02-16 11:30:32,555 | INFO | backend.main | Transcription complete in 5.05s
+2026-02-16 11:30:48,085 | INFO | backend.main | Received file for transcription: 1771223448_recording.webm | Lang: en
+2026-02-16 11:30:52,178 | INFO | backend.main | Transcription complete in 4.09s

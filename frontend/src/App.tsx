@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import { Mic, Square, Settings, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ModelManager } from './components/ModelManager'
