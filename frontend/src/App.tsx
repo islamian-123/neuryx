@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { Mic, Square, Settings, X, Sparkles } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Mic, Square, Settings, X, Sparkles, History, Clock, FileText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ModelManager } from './components/ModelManager'
 
@@ -9,6 +9,8 @@ function App() {
   const [liveText, setLiveText] = useState('')
   const [detectedLang, setDetectedLang] = useState<string | null>(null)
   const [showSettings, setShowSettings] = useState(false)
+  const [showHistory, setShowHistory] = useState(false)
+  const [historyItems, setHistoryItems] = useState<any[]>([])
 
   // Refs for batch recording
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
@@ -42,6 +44,7 @@ function App() {
         formData.append('language', 'auto') // Default to Auto
 
         try {
+          // Use the optimized backend endpoint
           const response = await fetch('/transcribe', {
             method: 'POST',
             body: formData,
@@ -60,7 +63,7 @@ function App() {
           }
         } catch (error) {
           console.error('Upload failed:', error)
-          setStatus('Upload failed')
+          setStatus('Upload failed (Check connection)')
         } finally {
           setIsRecording(false)
           // Stop all tracks
@@ -92,6 +95,38 @@ function App() {
     }
   }
 
+  const fetchHistory = async () => {
+    try {
+      const res = await fetch('/history')
+      const data = await res.json()
+      setHistoryItems(data.history || [])
+    } catch (e) {
+      console.error("Failed to load history", e)
+    }
+  }
+
+  // Load history when modal opens
+  useEffect(() => {
+    if (showHistory) {
+      fetchHistory()
+    }
+  }, [showHistory])
+
+  const loadHistoryItem = async (id: string) => {
+    try {
+      const res = await fetch(`/history/${id}`)
+      const data = await res.json()
+
+      setLiveText(data.full_text)
+      const langName = data.language === 'ur' ? 'Urdu (Romanized)' : data.language
+      setDetectedLang(langName)
+      setStatus(`Loaded from History (${new Date(data.timestamp * 1000).toLocaleTimeString()})`)
+      setShowHistory(false)
+    } catch (e) {
+      console.error("Failed to load history detail", e)
+    }
+  }
+
   return (
     <div className="app-container">
       {/* Background glow */}
@@ -104,11 +139,20 @@ function App() {
           <h1 className="app-title">NEURYX</h1>
           <p className="app-subtitle">Local Neural Speech Engine</p>
         </div>
-        <div className="header-right">
+        <div className="header-right flex items-center gap-2">
+          <button
+            onClick={() => setShowHistory(true)}
+            className="settings-btn"
+            aria-label="History"
+            title="History"
+          >
+            <History size={20} />
+          </button>
           <button
             onClick={() => setShowSettings(true)}
             className="settings-btn"
             aria-label="Settings"
+            title="Settings"
           >
             <Settings size={20} />
           </button>
@@ -138,6 +182,64 @@ function App() {
               </div>
               <div className="modal-body">
                 <ModelManager />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* History Modal */}
+      <AnimatePresence>
+        {showHistory && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="modal-overlay"
+            onClick={() => setShowHistory(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, translateY: 20, opacity: 0 }}
+              animate={{ scale: 1, translateY: 0, opacity: 1 }}
+              exit={{ scale: 0.9, translateY: 20, opacity: 0 }}
+              onClick={e => e.stopPropagation()}
+              className="modal-content"
+              style={{ maxWidth: '600px', height: '80vh', display: 'flex', flexDirection: 'column' }}
+            >
+              <div className="modal-header">
+                <h2><History size={18} /> Memory</h2>
+                <button onClick={() => setShowHistory(false)} className="modal-close"><X size={18} /></button>
+              </div>
+              <div className="modal-body custom-scrollbar" style={{ overflowY: 'auto', flex: 1, padding: '1rem' }}>
+                {historyItems.length === 0 ? (
+                  <div className="text-center opacity-50 py-10">No history found.</div>
+                ) : (
+                  <div className="space-y-3">
+                    {historyItems.map((item) => (
+                      <div
+                        key={item.id}
+                        onClick={() => loadHistoryItem(item.id)}
+                        className="p-4 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors border border-white/5"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex items-center gap-2 text-sm text-primary/80">
+                            <Clock size={14} />
+                            <span>{new Date(item.timestamp * 1000).toLocaleString()}</span>
+                          </div>
+                          <span className="text-xs px-2 py-1 rounded bg-black/20 text-white/50 border border-white/5">
+                            {item.duration ? `${item.duration.toFixed(1)}s` : 'N/A'}
+                          </span>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <FileText size={16} className="mt-1 opacity-50 shrink-0" />
+                          <p className="text-sm opacity-80 line-clamp-2 leading-relaxed">
+                            {item.full_text || "No text content"}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           </motion.div>

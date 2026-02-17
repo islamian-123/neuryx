@@ -80,22 +80,80 @@ def stop_recording():
         logger.error(f"Failed to stop/transcribe: {e}")
         return {"status": "error", "message": str(e)}
 
+# Helper for blocking transcription
+def run_transcription(file_path, language):
+    from backend.speech.model_loader import ModelLoader
+    from backend.nlp.transliterator import RomanTransliterator
+
+    model = ModelLoader.get_model("small")
+    
+    start_time = time.time()
+    
+    segments, info = model.transcribe(
+        file_path,
+        language=None if language == "auto" else language,
+        beam_size=5,
+        best_of=3,
+        temperature=0.0,
+        condition_on_previous_text=True,
+        vad_filter=True,
+        vad_parameters=dict(min_silence_duration_ms=500)
+    )
+    
+    # Transliteration Logic
+    ROMAN_OUTPUT_ENABLED = True
+    transliterator = RomanTransliterator()
+
+    result_segments = []
+    full_text_list = []
+    
+    for seg in segments:
+        original_text = seg.text.strip()
+        
+        if ROMAN_OUTPUT_ENABLED:
+            roman_text = transliterator.transliterate_text(original_text)
+        else:
+            roman_text = original_text
+        
+        full_text_list.append(roman_text)
+        result_segments.append({
+            "text": roman_text,
+            "start": seg.start,
+            "end": seg.end,
+            "original_text": original_text 
+        })
+        
+    full_text = " ".join(full_text_list)
+    duration = time.time() - start_time
+    
+    return {
+        "status": "success",
+        "language": info.language,
+        "duration": info.duration,
+        "processing_time": duration,
+        "full_text": full_text,
+        "segments": result_segments
+    }
+
 @app.post("/transcribe")
 async def transcribe_file(
     file: UploadFile = File(...),
-    language: str = Form("en")
+    language: str = Form("auto")
 ):
     """
     Batch transcription endpoint.
     Accepts an audio file, saves it, and runs full-accuracy transcription.
     """
     try:
+        from fastapi.concurrency import run_in_threadpool
+        
         # 1. Save File
         upload_dir = os.path.join(os.path.dirname(__file__), "recordings")
         os.makedirs(upload_dir, exist_ok=True)
         
         # Create unique filename
-        filename = f"{int(time.time())}_{file.filename}"
+        timestamp = int(time.time())
+        filename = f"{timestamp}_{file.filename}"
         file_path = os.path.join(upload_dir, filename)
         
         logger.info(f"Received file for transcription: {filename} | Lang: {language}")
@@ -105,70 +163,32 @@ async def transcribe_file(
             while content := await file.read(1024 * 1024): # 1MB chunks
                 buffer.write(content)
                 
-        # 2. Load Model
-        from backend.speech.model_loader import ModelLoader
-        # Use 'small' model by default
-        model = ModelLoader.get_model("small")
+        # 2. Run Transcription in Threadpool (Optimization)
+        # This prevents blocking the main event loop
+        result = await run_in_threadpool(run_transcription, file_path, language)
         
-        # 3. Transcribe (Accuracy Profile)
-        # BATCH MODE SETTINGS
-        # beam_size=5, best_of=3, temperature=0.0
-        start_time = time.time()
+        # 3. Persistence (History)
+        # Save the result to a JSON file
+        transcripts_dir = os.path.join(os.path.dirname(__file__), "transcripts") # e:\Neuryx\backend\transcripts
+        os.makedirs(transcripts_dir, exist_ok=True)
         
-        segments, info = model.transcribe(
-            file_path,
-            language=None if language == "auto" else language,
-            beam_size=5,
-            best_of=3,
-            temperature=0.0,
-            condition_on_previous_text=True,
-            vad_filter=True,
-            vad_parameters=dict(min_silence_duration_ms=500)
-        )
+        history_file = os.path.join(transcripts_dir, f"{timestamp}.json")
+        import json
         
-        # 4. Format Response
-        # 4. Format Response & Transliterate
-        from backend.nlp.transliterator import RomanTransliterator
+        # Add metadata for history
+        history_data = {
+            "id": str(timestamp),
+            "timestamp": timestamp,
+            "filename": filename,
+            **result
+        }
         
-        # Easy toggle for Roman Output
-        ROMAN_OUTPUT_ENABLED = True
-        
-        transliterator = RomanTransliterator()
+        with open(history_file, "w", encoding="utf-8") as f:
+            json.dump(history_data, f, ensure_ascii=False, indent=2)
+            
+        logger.info(f"Saved transcript to history: {history_file}")
 
-        result_segments = []
-        full_text_list = []
-        
-        for seg in segments:
-            original_text = seg.text.strip()
-            
-            if ROMAN_OUTPUT_ENABLED:
-                roman_text = transliterator.transliterate_text(original_text)
-            else:
-                roman_text = original_text
-            
-            full_text_list.append(roman_text)
-            result_segments.append({
-                "text": roman_text,
-                "start": seg.start,
-                "end": seg.end,
-                "original_text": original_text 
-            })
-            
-        full_text = " ".join(full_text_list)
-        duration = time.time() - start_time
-        
-        logger.info(f"Transcription complete in {duration:.2f}s")
-        if ROMAN_OUTPUT_ENABLED:
-             logger.info("Transliteration applied (Urdu -> Roman)")
-        
-        return JSONResponse({
-            "status": "success",
-            "language": info.language,
-            "duration": info.duration,
-            "processing_time": duration,
-            "full_text": full_text,
-            "segments": result_segments
-        })
+        return JSONResponse(result)
 
     except Exception as e:
         logger.error(f"Transcription failed: {e}", exc_info=True)
@@ -176,6 +196,61 @@ async def transcribe_file(
             status_code=500,
             content={"status": "error", "message": str(e)}
         )
+
+@app.get("/history")
+async def get_history():
+    """List all past transcriptions."""
+    try:
+        transcripts_dir = os.path.join(os.path.dirname(__file__), "transcripts")
+        if not os.path.exists(transcripts_dir):
+            return {"history": []}
+            
+        history_items = []
+        import json
+        
+        # List all .json files
+        files = sorted([f for f in os.listdir(transcripts_dir) if f.endswith(".json")], reverse=True)
+        
+        for f in files:
+            try:
+                with open(os.path.join(transcripts_dir, f), "r", encoding="utf-8") as file:
+                    data = json.load(file)
+                    # Return summary data
+                    history_items.append({
+                        "id": data.get("id"),
+                        "timestamp": data.get("timestamp"),
+                        "full_text": data.get("full_text", "")[:100] + "...", # Preview
+                        "language": data.get("language"),
+                        "duration": data.get("duration")
+                    })
+            except Exception as read_err:
+                logger.warning(f"Failed to read history file {f}: {read_err}")
+                continue
+                
+        return {"history": history_items}
+        
+    except Exception as e:
+        logger.error(f"History fetch failed: {e}")
+        return {"history": []}
+
+@app.get("/history/{id}")
+async def get_history_detail(id: str):
+    """Get full details of a specific history item."""
+    try:
+        transcripts_dir = os.path.join(os.path.dirname(__file__), "transcripts")
+        file_path = os.path.join(transcripts_dir, f"{id}.json")
+        
+        if not os.path.exists(file_path):
+             return JSONResponse(status_code=404, content={"message": "History not found"})
+             
+        import json
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return data
+            
+    except Exception as e:
+        logger.error(f"History detail failed: {e}")
+        return JSONResponse(status_code=500, content={"message": str(e)})
 
 # Mount static assets AFTER all API/WS routes (so routes take priority)
 if os.path.isdir(FRONTEND_DIR):
